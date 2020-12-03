@@ -4,15 +4,32 @@ const csv = require('csv-parser');
 const fs = require('fs');
 var data = [];
 var newData = [];
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const csvWriter = createCsvWriter({
+  path: ' outputTabel.csv',
+  header: [
+    {id: 'Employee Name', title: 'Employee Name'},
+    {id: 'Jun 29 2020', title: 'Jun 29 2020'},
+    {id: 'Jun 30 2020', title: 'Jun 30 2020'},
+    {id: 'Jul 01 2020', title: 'Jul 01 2020'},
+    {id: 'Jul 02 2020', title: 'Jul 02 2020'},
+    {id: 'Jul 03 2020', title: 'Jul 03 2020'},
+    {id: 'Jul 03 2020', title: 'Jul 03 2020'},
+    {id: 'Jul 05 2020', title: 'Jul 05 2020'},
+  ]
+});
 
 
+
+ 
 fs.createReadStream('acme_worksheet.csv')
   .pipe(csv())
   .on('data', (row) => {
  		data.push(row);
   })
-  .on('end', () => {				//here we get data from csv file
-      transformData(data)
+  .on('end', () => {	
+      var transformedData = transformData(data)  //here we get data from csv file
+      csvWriter.writeRecords(transformedData)
   });
 
 
@@ -41,8 +58,8 @@ fs.createReadStream('acme_worksheet.csv')
 
  function findObjectbyName(name, data){
  	return data.find(obj => {
- 		 		return obj["Employee Name"] === name
- 		 	})
+ 		return obj["Employee Name"] === name
+ 	})
  }
 
 
