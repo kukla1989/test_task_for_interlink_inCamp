@@ -1,5 +1,5 @@
 
-//before launch you need install node and after this run 'npm i -s csv-parser'
+//before launch you need install node and after this run install csv-parser && csv-writer
 const csv = require('csv-parser');
 const fs = require('fs');
 var data = [];
